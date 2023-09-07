@@ -1,0 +1,47 @@
+<%- include('../partials/header') %>
+
+<h2 class="title-home">Flight List</h2>
+<table class="flight-table">
+  <thead>
+    <tr>
+      <th></th>
+      <th class="header-cell">Airline</th>
+      <th class="header-cell">Airport</th>
+      <th class="header-cell">Flight Number</th>
+      <th class="header-cell">Departure</th>
+      <th class="header-cell">Destinations</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% flights.forEach(function (f) { %>
+      <tr class="table-row">
+        <td>
+          <form action="/flights/<%= f._id %>?_method=DELETE" class="delete-form" method="POST">
+            <button type="submit" class="delete-button">X</button>
+          </form>
+        </td>
+        <td><%= f.airline %></td>
+        <td><%= f.airport %></td>
+        <td><%= f.flightNo %></td>
+        <td><%= f.departs %></td>
+        <!-- <td>
+          <% if (f.destinations.length > 0) { %>
+            <%= f.destinations[0].arrival %>
+            <% } else { %>
+              No destinations
+              <% } %>
+            </td> -->
+            <td>
+              <ul>
+                <% f.destinations.sort((a, b) => a.arrival - b.arrival).forEach(function (destination) { %>
+                  <li><strong>Airport:</strong> <%= destination.airport %>, <strong>Arrival:</strong> <%= destination.arrival %></li>
+                  <% }); %>
+                </ul>          
+              </td>
+              <td><a href="/flights/<%= f._id %>" class="flight-details-link">DETAILS</a></td>
+            </tr>
+    <% }); %>
+  </tbody>
+</table>
+
+<%- include('../partials/footer') %>

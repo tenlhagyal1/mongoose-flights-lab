@@ -1,0 +1,55 @@
+<%- include('../partials/header') %>
+
+<div class="form-container">
+  <h2>Enter a New Flight</h2>
+  <form action="/flights" method="POST">
+    <label
+      >Airline
+      <select name="airline">
+        <option value="American">American</option>
+        <option value="Southwest">Southwest</option>
+        <option value="United">United</option>
+        <option value="Jetblue">Jetblue</option>
+      </select> </label
+    ><br />
+    <label
+      >Airport
+      <select name="airport">
+        <option value="AUS">AUS</option>
+        <option value="DFW">DFW</option>
+        <option value="DEN">DEN</option>
+        <option value="LAX">LAX</option>
+        <option value="SAN">SAN</option>
+      </select> </label
+    ><br />
+    <label>Flight Number: <input name="flightNo" type="number" /> </label><br />
+    <label>
+      Departure date
+      <input
+        type="datetime-local"
+        name="departs"
+        value="<%= new Date().toISOString().slice(0, 16) %>"
+      /> </label
+    ><br />
+    <label
+      >Destination Airport
+      <select name="destinations[0][airport]">
+        <option value="AUS">AUS</option>
+        <option value="DFW">DFW</option>
+        <option value="DEN">DEN</option>
+        <option value="LAX">LAX</option>
+        <option value="SAN">SAN</option>
+      </select>
+    </label>
+    <br />
+    <label
+      >Arrival Date
+      <input type="datetime-local" name="destinations[0][arrival]" />
+    </label>
+    <br />
+    <button type="submit" class="add-flight-button">Add Flight</button>
+  </form>
+  <p class="error-message"><%= errorMsg %></p>
+</div>
+
+<%- include('../partials/footer') %>

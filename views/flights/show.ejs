@@ -1,0 +1,51 @@
+<%- include('../partials/header') %>
+
+<section id="show-page" class="form-container">
+  <h1 class="title-home">Flight Details</h1>
+  <div class="landing-text">View details of the flight</div>
+
+  <div class="header-cell">Airline:</div>
+  <div><%= flight.airline %></div>
+  <div class="header-cell">Airport:</div>
+  <div><%= flight.airport %></div>
+  <div class="header-cell">Flight Number:</div>
+  <div><%= flight.flightNo %></div>
+  <div class="header-cell">Departs:</div>
+  <div><%= flight.departs %></div>
+  <div class="header-cell">Destination:</div>
+  <ul class="table-row">
+    <% flight.destinations.forEach((f) => { %>
+    <li><%= f.airport %></li>
+    <li><%= f.arrival %></li>
+    <% }) %>
+  </ul>
+  <div class="header-cell">Ticket:</div>
+  <ul>
+    <%- tickets?.map(t =>
+        `<li> seat: ${t?.seat} <small> Price: $${t?.price}</small></li>`
+    ).join('') %>
+</ul>
+  <form method="GET" 
+        action="/flights/<%= flight._id %>/tickets/new"
+  >
+    <button class="btn-primary" type="submit">Add New Ticket</button>
+  </form>
+<form
+  id="add-destination-form"
+  class="form-container"
+  method="POST"
+  action="/flights/<%= flight._id %>/destination"
+>
+  <label class="form-label">Edit Destination</label>
+  <select class="form-input" name="airport">
+    <option value="AUS">AUS</option>
+    <option value="DFW">DFW</option>
+    <option value="DEN">DEN</option>
+    <option value="LAX">LAX</option>
+    <option value="SAN">SAN</option>
+  </select>
+  <label class="form-label">Arrival</label>
+  <input class="form-input" name="arrival" type="datetime-local" />
+  <input class="form-submit" type="submit" value="Submit Edit" />
+</form>
+<%- include('../partials/footer') %>

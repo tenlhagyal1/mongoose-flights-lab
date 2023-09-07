@@ -1,0 +1,19 @@
+
+<%- include('../partials/header') %>
+
+<h1>Create New Ticket for Flight <%= flightId %></h1>
+
+<form method="POST" action="/flights/<%= flightId %>">
+    <label for="seat">Seat:</label>
+    <input type="text" name="seat" required pattern="[A-Za-z][1-9]\d?" title="Please enter a valid seat (e.g., A1)"
+           oninput="this.value = this.value.toUpperCase()">
+    <span class="validation-message">Please enter a valid seat (e.g., A1)</span>
+    <br>
+    <label for="price">Price:</label>
+    <input type="number" name="price" min="0">
+    <br>
+    <input type="hidden" name="flight" value="<%= flightId %>">
+    <input type="submit" value="Create Ticket">
+</form>
+
+<%- include('../partials/footer') %>
